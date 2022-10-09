@@ -35,7 +35,7 @@ public abstract class Bag {
         this.color = bag_color;
         this.numberOfContents = 0;
         this.capacity = bag_capacity;
-        this.contents = new ArrayList<String>(0);
+        this.contents = new ArrayList<String>(bag_capacity);
 
 
     }
@@ -86,7 +86,7 @@ public abstract class Bag {
     public boolean addItem(String new_item){
         if (this.numberOfContents < this.capacity){
             this.contents.add(new_item);
-            numberOfContents += 1;
+            this.numberOfContents += 1;
             return true;
         }else{
             return false;
@@ -108,10 +108,10 @@ public abstract class Bag {
      * @return
      */
     public String popItem(){
-        if (numberOfContents == 0){
+        if (this.numberOfContents == 0){
             return null;
         }else{
-            String pop_item = this.contents.get(this.contents.size() - 1);
+            String pop_item = this.contents.get(this.numberOfContents - 1);
             this.numberOfContents -= 1;
             return pop_item;
         }
