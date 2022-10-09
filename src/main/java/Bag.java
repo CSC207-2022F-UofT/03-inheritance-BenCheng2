@@ -5,6 +5,7 @@
  * 1. Introduction to Java helpful.
  */
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public abstract class Bag {
@@ -18,7 +19,7 @@ public abstract class Bag {
     private String color;
     private int numberOfContents;
     private int capacity;
-    private ArrayList<String> contents;
+    private String[] contents;
 
 
 
@@ -35,9 +36,7 @@ public abstract class Bag {
         this.color = bag_color;
         this.numberOfContents = 0;
         this.capacity = bag_capacity;
-        this.contents = new ArrayList<String>(bag_capacity);
-
-
+        this.contents = new String[bag_capacity];
     }
 
 
@@ -85,7 +84,7 @@ public abstract class Bag {
      */
     public boolean addItem(String new_item){
         if (this.numberOfContents < this.capacity){
-            this.contents.add(new_item);
+            this.contents[this.numberOfContents] = new_item;
             this.numberOfContents += 1;
             return true;
         }else{
@@ -111,7 +110,7 @@ public abstract class Bag {
         if (this.numberOfContents == 0){
             return null;
         }else{
-            String pop_item = this.contents.get(this.numberOfContents - 1);
+            String pop_item = this.contents[this.numberOfContents - 1];
             this.numberOfContents -= 1;
             return pop_item;
         }
@@ -126,8 +125,12 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-        this.capacity += n;
-
+        String[] new_contents = new String[this.capacity + n];
+        for (int i=0;i<this.numberOfContents;i++) {
+            new_contents[i] = this.contents[i];
+        }
+        this.contents = new_contents;
+        this.capacity = this.capacity + n;
     }
 
     /**
